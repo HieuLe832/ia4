@@ -40,12 +40,14 @@ export default function App() {
   return (
     <WishlistProvider>
       <Header />
-      <main>
+      <main className="container py-3">
         <SavedPanel />
         <SearchBox value={query} onChange={setQuery} />
-        <p role="status">{STATUS_TEXT[status]}</p>
+        <p className="text-secondary" role="status">
+          {STATUS_TEXT[status]}
+        </p>
         {status === 'error' && (
-          <button type="button" onClick={retry}>
+          <button className="btn btn-secondary mb-3" type="button" onClick={retry}>
             Retry
           </button>
         )}

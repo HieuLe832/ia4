@@ -38,12 +38,15 @@ export default function CheckoutForm({ count, total, onPlaced }) {
   };
 
   return (
-    <form className="checkout" aria-label="Checkout" onSubmit={handleSubmit}>
-      <h3>Checkout</h3>
+    <form className="checkout border-top mt-3 pt-3" aria-label="Checkout" onSubmit={handleSubmit}>
+      <h3 className="h6">Checkout</h3>
 
-      <div className="field">
-        <label htmlFor="checkout-name">Name</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="checkout-name">
+          Name
+        </label>
         <input
+          className="form-control"
           id="checkout-name"
           type="text"
           value={name}
@@ -52,15 +55,18 @@ export default function CheckoutForm({ count, total, onPlaced }) {
           onChange={(event) => setName(event.target.value)}
         />
         {showNameError && (
-          <p className="field-error" id="checkout-name-error">
+          <p className="text-danger small mt-1 mb-0" id="checkout-name-error">
             {nameError}
           </p>
         )}
       </div>
 
-      <div className="field">
-        <label htmlFor="checkout-phone">Phone</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="checkout-phone">
+          Phone
+        </label>
         <input
+          className="form-control"
           id="checkout-phone"
           type="tel"
           value={phone}
@@ -69,27 +75,32 @@ export default function CheckoutForm({ count, total, onPlaced }) {
           onChange={(event) => setPhone(event.target.value)}
         />
         {showPhoneError && (
-          <p className="field-error" id="checkout-phone-error">
+          <p className="text-danger small mt-1 mb-0" id="checkout-phone-error">
             {phoneError}
           </p>
         )}
       </div>
 
-      <div className="field">
-        <label htmlFor="checkout-note">Note (optional)</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="checkout-note">
+          Note (optional)
+        </label>
         <textarea
+          className="form-control"
           id="checkout-note"
           maxLength={200}
           value={note}
           onChange={(event) => setNote(event.target.value)}
         />
-        <p className="counter">{note.length}/200</p>
+        <p className="counter mt-1 mb-0">{note.length}/200</p>
       </div>
 
-      <button type="submit">Place order</button>
+      <button className="btn btn-primary w-100" type="submit">
+        Place order
+      </button>
 
-      {showCartError && <p className="form-error">{CART_ERROR}</p>}
-      {placed !== '' && <p className="confirmation">{placed}</p>}
+      {showCartError && <p className="text-danger small mt-2 mb-0">{CART_ERROR}</p>}
+      {placed !== '' && <p className="fw-semibold text-success mt-2 mb-0">{placed}</p>}
     </form>
   );
 }

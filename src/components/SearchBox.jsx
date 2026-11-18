@@ -1,8 +1,11 @@
 export default function SearchBox({ value, onChange }) {
   return (
-    <div className="search">
-      <label htmlFor="search-products">Search products</label>
+    <div className="mb-3">
+      <label className="form-label" htmlFor="search-products">
+        Search products
+      </label>
       <input
+        className="form-control"
         id="search-products"
         type="search"
         value={value}

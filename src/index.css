@@ -1,95 +1,20 @@
-/* Starting styles — your assistant may change this file. */
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.5; color: #1d1d1f; background: #fafafa; }
-main { max-width: 960px; margin: 0 auto; padding: 16px 16px 96px; }
-button { min-height: 44px; padding: 0 14px; font: inherit; cursor: pointer; }
+/* Bootstrap 5 supplies the look (imported from node_modules in main.jsx).
+   Only the rules the brief needs on top of it live here. */
 
-h1 { font-size: 1.6rem; margin: 0 0 12px; }
+/* Row 19: no button under 44 px tall at any width. */
+button { min-height: 44px; }
 
-.header {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 16px 16px 0;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.header h1 { margin: 0; }
-.saved-count { margin: 0; font-weight: 600; }
+/* Long product names wrap instead of pushing the card sideways (row 19, 360 px). */
+.card-title { overflow-wrap: anywhere; }
 
-.saved {
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  background: #fff;
-  border: 1px solid #e2e2e7;
-  border-radius: 12px;
-}
-.saved h2 { font-size: 1rem; margin: 0 0 6px; }
-.saved ul { margin: 0; padding-left: 20px; }
-.saved p { margin: 0; color: #555; }
-
-.search { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-.search label { font-weight: 600; }
-.search input { min-height: 44px; padding: 0 12px; font: inherit; border: 1px solid #c9c9cf; border-radius: 8px; }
-
-[role='status'] { min-height: 1.5rem; margin: 0 0 12px; color: #555; }
-
-.products {
-  list-style: none;
-  margin: 0 0 24px;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  background: #fff;
-  border: 1px solid #e2e2e7;
-  border-radius: 12px;
-}
-.card h2 { font-size: 1.05rem; margin: 0; overflow-wrap: anywhere; }
-.card .price { margin: 0; font-weight: 600; }
-.card .description { margin: 0; color: #555; }
-.card button { margin-right: 8px; }
 /* A pressed Save must look pressed, not only carry aria-pressed (W1, row 14). */
-.card button[aria-pressed='true'] {
-  background: #dbeafe;
-  border-color: #2563eb;
-  color: #1e3a8a;
+.btn[aria-pressed='true'] {
+  background-color: #cfe2ff;
+  border-color: #0d6efd;
+  color: #084298;
   font-weight: 600;
 }
 
-.cart {
-  padding: 16px;
-  background: #fff;
-  border: 1px solid #e2e2e7;
-  border-radius: 12px;
-}
-.cart h2 { font-size: 1.1rem; margin: 0 0 8px; }
-.cart p { margin: 0; }
-.cart .total { font-weight: 700; }
+[aria-invalid='true'] { border-color: #dc3545; }
 
-.checkout { margin-top: 16px; border-top: 1px solid #e2e2e7; padding-top: 12px; }
-.checkout h3 { font-size: 1rem; margin: 0 0 8px; }
-.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
-.field label { font-weight: 600; }
-.field input, .field textarea {
-  min-height: 44px;
-  padding: 8px 12px;
-  font: inherit;
-  border: 1px solid #c9c9cf;
-  border-radius: 8px;
-  background: #fff;
-}
-.field textarea { resize: vertical; }
-.field input[aria-invalid='true'], .field textarea[aria-invalid='true'] { border-color: #b3261e; }
-.field .field-error, .form-error { margin: 0; color: #b3261e; }
-.field .counter { margin: 0; font-size: 0.85rem; color: #555; }
-.confirmation { margin: 12px 0 0; font-weight: 600; color: #0a6b3d; }
+.counter { font-size: 0.85rem; color: #6c757d; }
