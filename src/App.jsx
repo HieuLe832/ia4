@@ -5,6 +5,7 @@ import SavedPanel from './components/SavedPanel.jsx';
 import SearchBox from './components/SearchBox.jsx';
 import ProductList from './components/ProductList.jsx';
 import CartSummary from './components/CartSummary.jsx';
+import CheckoutForm from './components/CheckoutForm.jsx';
 import { useProducts } from './useProducts.js';
 
 const STATUS_TEXT = {
@@ -49,7 +50,9 @@ export default function App() {
           </button>
         )}
         <ProductList products={products} onAddToCart={addToCart} />
-        <CartSummary count={count} total={total} />
+        <CartSummary count={count} total={total}>
+          <CheckoutForm count={count} total={total} onPlaced={() => setCart([])} />
+        </CartSummary>
       </main>
     </WishlistProvider>
   );
