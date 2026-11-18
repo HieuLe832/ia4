@@ -52,3 +52,18 @@ Changed: the first version only set `aria-pressed` and left the button looking e
 before; on row 14 I could not see which cards were saved, so CSS for
 `button[aria-pressed='true']` was added (`src/index.css`) and I checked the pressed look again.
 Rejected: nothing.
+
+## 2026-11-18 — memoize the wishlist context value (rejected and reverted)
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: memoize the context value — `useCallback` for `toggle` and `isSaved`, `useMemo` for
+the object — to stop every `ProductCard` re-rendering when `App` renders for something else,
+such as *Add to cart*.
+Ran: `console.count('ProductCard')` as the first line of `ProductCard`, console cleared, then
+*Add to cart* on Cap once: **16 renders on `d97ba7d` and 16 again after the revert** (8 cards × 2
+from StrictMode's double render in development). `npm test` 14 passed, `npm run lint` silent,
+rows 14, 15 and 20 unchanged after the revert.
+Kept: nothing from this request — the behaviour and the test results were identical.
+Changed: nothing.
+Rejected: the memo itself. `WishlistProvider` sits inside `App`, so every render of `App`
+recreates the children and each card renders anyway; the value changes only when `saved` does,
+which is exactly when the cards must render. Reverted in `d17929a`; REVIEW.md entry 7.
