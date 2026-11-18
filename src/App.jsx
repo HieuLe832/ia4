@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { WishlistProvider } from './WishlistContext.jsx';
+import Header from './components/Header.jsx';
+import SavedPanel from './components/SavedPanel.jsx';
 import SearchBox from './components/SearchBox.jsx';
 import ProductList from './components/ProductList.jsx';
 import CartSummary from './components/CartSummary.jsx';
@@ -31,18 +34,23 @@ export default function App() {
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
   const total = cart.reduce((sum, item) => sum + item.product.price * item.qty, 0);
 
+  // The one wishlist provider for the page sits above the header, the cards and
+  // the Saved panel (W5, row 15).
   return (
-    <main>
-      <h1>Shop</h1>
-      <SearchBox value={query} onChange={setQuery} />
-      <p role="status">{STATUS_TEXT[status]}</p>
-      {status === 'error' && (
-        <button type="button" onClick={retry}>
-          Retry
-        </button>
-      )}
-      <ProductList products={products} onAddToCart={addToCart} />
-      <CartSummary count={count} total={total} />
-    </main>
+    <WishlistProvider>
+      <Header />
+      <main>
+        <SavedPanel />
+        <SearchBox value={query} onChange={setQuery} />
+        <p role="status">{STATUS_TEXT[status]}</p>
+        {status === 'error' && (
+          <button type="button" onClick={retry}>
+            Retry
+          </button>
+        )}
+        <ProductList products={products} onAddToCart={addToCart} />
+        <CartSummary count={count} total={total} />
+      </main>
+    </WishlistProvider>
   );
 }

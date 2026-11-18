@@ -6,6 +6,30 @@ button { min-height: 44px; padding: 0 14px; font: inherit; cursor: pointer; }
 
 h1 { font-size: 1.6rem; margin: 0 0 12px; }
 
+.header {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 16px 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.header h1 { margin: 0; }
+.saved-count { margin: 0; font-weight: 600; }
+
+.saved {
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background: #fff;
+  border: 1px solid #e2e2e7;
+  border-radius: 12px;
+}
+.saved h2 { font-size: 1rem; margin: 0 0 6px; }
+.saved ul { margin: 0; padding-left: 20px; }
+.saved p { margin: 0; color: #555; }
+
 .search { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .search label { font-weight: 600; }
 .search input { min-height: 44px; padding: 0 12px; font: inherit; border: 1px solid #c9c9cf; border-radius: 8px; }
@@ -34,6 +58,13 @@ h1 { font-size: 1.6rem; margin: 0 0 12px; }
 .card .price { margin: 0; font-weight: 600; }
 .card .description { margin: 0; color: #555; }
 .card button { margin-right: 8px; }
+/* A pressed Save must look pressed, not only carry aria-pressed (W1, row 14). */
+.card button[aria-pressed='true'] {
+  background: #dbeafe;
+  border-color: #2563eb;
+  color: #1e3a8a;
+  font-weight: 600;
+}
 
 .cart {
   padding: 16px;

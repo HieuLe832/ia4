@@ -33,3 +33,22 @@ abort in the effect cleanup with a 250 ms debounce (row 7, row 8); the cart as
 in ProductList (row 9); Details open state inside ProductCard (row 9).
 Changed: nothing — no row failed on the first run.
 Rejected: nothing.
+
+## 2026-11-18 — wishlist through a context (W1–W5)
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: the wishlist part — a `Save` button with `aria-pressed` on every card, the header
+`Saved: N`, a `Saved` panel listing names in the order saved, `src/WishlistContext.jsx` with
+one provider for the page, `ProductCard` reading it through a hook, and the count computed.
+Ran: npm test → I1–I3 pass and C1–C11 still pass; npm run lint → no output; rows 14, 15 and 20
+by hand. Row 14: Saved: 0 → saved Cap and Jacket → Saved: 2 with the panel listing Cap, Jacket;
+typed `hood` and both stayed counted and listed; cleared the box and Cap's Save was still
+pressed. Row 15: React DevTools shows one `WishlistProvider` above the header, the cards and
+the panel. Row 20: read — `ProductCard` uses `useWishlist()`, the count is `saved.length` at
+`src/WishlistContext.jsx:23`, not a `useState`.
+Kept: one provider above the whole page (row 15); the saved list as an array of product objects
+in save order, with `isSaved` and `toggle` in the context (rows 14, 20); the panel rendering
+names as text (I2).
+Changed: the first version only set `aria-pressed` and left the button looking exactly as
+before; on row 14 I could not see which cards were saved, so CSS for
+`button[aria-pressed='true']` was added (`src/index.css`) and I checked the pressed look again.
+Rejected: nothing.
