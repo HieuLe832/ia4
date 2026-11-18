@@ -82,3 +82,20 @@ so `git show <commit>:<file>` shows exactly the lines cited.
   the memo could not save a single render
 - **Sentence sent:** "16, 16 — memo không tiết kiệm được gì hết" (16 renders both ways — the
   memo saves nothing), after which `d97ba7d` was reverted
+
+### 8. The form errors are recomputed from the fields, not stored
+- **Where:** commit `b76245d`, `src/components/CheckoutForm.jsx` lines 17–18, with
+  `aria-describedby` only while a message shows at lines 51 and 68
+- **Decision:** kept
+- **What decided it:** row 17 and check I5 — with every field empty, Place order showed the Name
+  message, the Phone message and `Add something to the cart first.`; after typing a 9-digit
+  phone the Name message was still there (Name was still empty) and the cart message was still
+  there (the cart was still empty), which is what F2 and F3 ask for; row 18 — Tab reached every
+  field and button with a visible focus ring
+- **Why:** the two errors are computed on each render from `name` and `phone`, so a message and
+  its field cannot disagree; the alternative — a copy of the errors kept in state and synced by
+  an effect — is the shape the rubric says loses marks
+- **Sentence sent:** "theo tôi biết thì khi bấm Place order thì cái CheckoutForm.jsx nó gửi hết
+  thuộc tính mà form cần rồi cái nào thiếu thì display..." (my reading was that submit collects
+  the attributes and shows whichever is missing) — I checked the brief again and kept the
+  computed version

@@ -67,3 +67,23 @@ Changed: nothing.
 Rejected: the memo itself. `WishlistProvider` sits inside `App`, so every render of `App`
 recreates the children and each card renders anyway; the value changes only when `saved` does,
 which is exactly when the cards must render. Reverted in `d17929a`; REVIEW.md entry 7.
+
+## 2026-11-18 — checkout form (F1–F5)
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: a `Checkout` form inside the cart — Name, Phone (`type="tel"`), Note (optional) with
+a `0/200` counter, a `Place order` button, one message per field only after the first try,
+linked with `aria-describedby` and `aria-invalid`, the empty-cart message, and a confirmation
+that empties the cart and the fields without touching the wishlist.
+Ran: npm test → 19 passed; npm run lint → no output; rows 16, 17 and 18 by hand. Row 16: placed
+an order for An, saw `Order placed for An: 1 item, 420.000 đ.`, the cart went to 0 items and the
+address bar still read `localhost:5173/`. Row 17: an empty form gave the Name message, the
+Phone message and `Add something to the cart first.`; after a 9-digit phone the Name and cart
+messages were still there, which is what F2 and F3 ask for. Row 18: Tab reached every field and
+button with a visible focus ring.
+Kept: the errors computed from `name` and `phone` on every render (`CheckoutForm.jsx` lines
+17–18) with `aria-describedby` only while a message shows (lines 51, 68); `preventDefault` in
+the submit handler (line 25) so the page never reloads and the fields never reach the URL; the
+confirmation clearing the cart through `onPlaced` and resetting `tried` so no error appears on
+the cleared form.
+Changed: nothing.
+Rejected: nothing.
