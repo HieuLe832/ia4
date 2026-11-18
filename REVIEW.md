@@ -57,7 +57,9 @@ so `git show <commit>:<file>` shows exactly the lines cited.
 
 ### 6. A pressed Save looked exactly like an unpressed one
 - **Where:** commit `0bc20df`, `src/index.css` lines 61–67; the state itself is
-  `aria-pressed={saved}` at `src/components/ProductCard.jsx` line 28
+  `aria-pressed={saved}` at `src/components/ProductCard.jsx` line 28. The first version (the
+  attribute without the CSS) was never committed on its own, so `0bc20df` holds only the version
+  after the change (SELF_ASSESSMENT_REPORT.md, *What I did not manage*)
 - **Decision:** changed
 - **What decided it:** row 14, run by eye — after saving Cap the button was indistinguishable
   from the others and I had to open DevTools to know what was saved; after the CSS was added,
@@ -69,7 +71,9 @@ so `git show <commit>:<file>` shows exactly the lines cited.
 
 ### 7. Memoizing the wishlist context value saved no renders
 - **Where:** commit `d97ba7d`, `src/WishlistContext.jsx` lines 13, 21 and 23–26 (`useCallback`
-  for `toggle` and `isSaved`, `useMemo` for the value); reverted in commit `d17929a`
+  for `toggle` and `isSaved`, `useMemo` for the value); reverted in commit `d17929a`. I had asked
+  for this memo myself, to stop the cards re-rendering on *Add to cart* (AI-LOG.md); the
+  assistant wrote it, and the measurement below is why I threw it away
 - **Decision:** rejected
 - **What decided it:** counting renders with `console.count('ProductCard')` as the first line of
   `ProductCard`, clearing the console and pressing *Add to cart* once: **16 renders on
@@ -81,7 +85,7 @@ so `git show <commit>:<file>` shows exactly the lines cited.
   The value only changes when `saved` changes, which is exactly when the cards must render, so
   the memo could not save a single render
 - **Sentence sent:** "16, 16 — memo không tiết kiệm được gì hết" (16 renders both ways — the
-  memo saves nothing), after which `d97ba7d` was reverted
+  memo saves nothing); then I ran `git revert d97ba7d` myself, which made `d17929a`
 
 ### 8. The form errors are recomputed from the fields, not stored
 - **Where:** commit `b76245d`, `src/components/CheckoutForm.jsx` lines 17–18, with

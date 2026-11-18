@@ -1,9 +1,12 @@
 # AI-LOG.md
 
-Tool for every entry: OpenCode (agent mode), model DeepSeek V4.1 Flash Free.
-I made every commit myself; the assistant wrote code and drafts but never committed.
-Each entry was written right after the work it describes, except the setup entry, which I
-added at the end when I noticed it was missing from the log.
+Tool: OpenCode (agent mode), model DeepSeek V4.1 Flash Free, for every entry except the last
+two, which used Claude Code.
+I made every commit myself; the assistants wrote code and drafts but never committed.
+How the three written files were made: the assistant wrote the entries of this log for me,
+right after each part; I wrote the REVIEW.md entries myself after each part and asked the
+assistant to put them into the README's shape; the assistant drafted SELF_ASSESSMENT_REPORT.md
+at the end. The setup entry was added at the end, when I noticed it was missing from the log.
 
 ## 2026-11-18 — setup and the starter commit
 Tool: OpenCode (DeepSeek V4.1 Flash Free).
@@ -76,7 +79,9 @@ Kept: nothing from this request — the behaviour and the test results were iden
 Changed: nothing.
 Rejected: the memo itself. `WishlistProvider` sits inside `App`, so every render of `App`
 recreates the children and each card renders anyway; the value changes only when `saved` does,
-which is exactly when the cards must render. Reverted in `d17929a`; REVIEW.md entry 7.
+which is exactly when the cards must render. I told the assistant "16, 16 — memo không tiết
+kiệm được gì hết" (16 renders both ways — the memo saves nothing) and ran `git revert d97ba7d`
+myself, which made `d17929a`; REVIEW.md entry 7.
 
 ## 2026-11-18 — checkout form (F1–F5)
 Tool: OpenCode (DeepSeek V4.1 Flash Free).
@@ -95,6 +100,12 @@ Kept: the errors computed from `name` and `phone` on every render (`CheckoutForm
 the submit handler (line 25) so the page never reloads and the fields never reach the URL; the
 confirmation clearing the cart through `onPlaced` and resetting `tried` so no error appears on
 the cleared form.
+Asked about it: after reading the diff I sent "theo tôi biết thì khi bấm Place order thì cái
+CheckoutForm.jsx nó gửi hết thuộc tính mà form cần rồi cái nào thiếu thì display..." (my reading
+was that submit collects the attributes and shows whichever is missing). I checked F2 in
+brief-ia4.md again: the errors are worked out from the fields, not stored, and the messages only
+show after the first try, through `tried`. So I kept the computed version; REVIEW.md entry 8.
+I left this exchange out when I first wrote this entry and added it later.
 Changed: nothing.
 Rejected: nothing.
 
@@ -117,21 +128,68 @@ existing `ul`/`li` (`row g-3` + `col-12 col-md-6 col-xl-4`); `min-height: 44px` 
 Changed: nothing.
 Rejected: nothing.
 
-## 2026-11-18 — the three written files
+## 2026-11-18 — written files, after each part
 Tool: OpenCode (DeepSeek V4.1 Flash Free).
-Asked for: draft `REVIEW.md`, `AI-LOG.md` and `SELF_ASSESSMENT_REPORT.md` from what the earlier
-requests actually did — no claim that was not run or read, and one REVIEW entry per decision,
-tied to a commit and to lines that exist in that commit.
+After each part I wrote its REVIEW.md entries myself and asked the assistant to put them into
+the README's shape (where, decision, what decided it, why, sentence sent) and to write the
+AI-LOG.md entry for that part. These requests landed in the commits below:
+- `71f6e58` — AI-LOG entries for the plan and the session 6 page.
+- `0bc20df` — REVIEW entries 1–3 (session 6) and the AI-LOG wishlist entry, committed together
+  with the wishlist code.
+- `6073d66` — REVIEW entries 4–7 (wishlist, memo) and the AI-LOG memo entry.
+- `381acbd` — REVIEW entry 8 and the AI-LOG form entry.
+- `9a53866` — REVIEW entries 9–10 and the AI-LOG framework entry (with the self-assessment, next
+  entry).
+Kept: the shape the assistant gave my entries; the AI-LOG entries it wrote.
+Changed: nothing at the time; the fixes are in the entries below.
+Rejected: nothing.
+
+## 2026-11-18 — the self-assessment draft and a pass over the written files
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: draft `SELF_ASSESSMENT_REPORT.md` from what the earlier requests actually did, and
+check REVIEW.md and AI-LOG.md against the history — no claim that was not run or read, every
+REVIEW entry tied to a commit and to lines that exist in that commit.
 Ran: checked every cited line with `git show <commit>:<file>`; `npm test` → 19 passed;
 `npm run lint` → no output; row 3 prints nothing; `git diff 59d2140 -- package.json
 vite.config.js` shows only the bootstrap line. Read the drafts back against the rubric's shape.
-Kept: the ten REVIEW entries and the evidence in each; the self-assessment table, with claims
-set below the maximum where the evidence was thinner.
+Kept: the self-assessment table, with claims set below the maximum where the evidence was
+thinner.
 Changed: added the setup entry I had left out, and said so in the opening line; removed the
 "starter commit is not logged" bullet from the self-assessment, raised that claim from 8 to 9
 and the total from 93 to 94; rewrote the "What I would do differently" sentence that still asked
-for the setup entry; corrected three citations that had drifted after the Bootstrap commit —
-`src/App.jsx` lines 31–32 → 35–36, `src/App.jsx` line 40 → 41, `src/components/ProductList.jsx`
-line 4 → 8 — and two in the new framework entry (`ProductList.jsx` line 5 for the grid,
+for the setup entry; corrected three citations in the self-assessment draft that had drifted
+after the Bootstrap commit — `src/App.jsx` lines 31–32 → 35–36, `src/App.jsx` line 40 → 41,
+`src/components/ProductList.jsx` line 4 → 8 (the self-assessment cites lines as of `ed59caa`;
+REVIEW.md cites each line as of its own commit, so its 31–32 and 40 are still right there) —
+and two in the new framework entry (`ProductList.jsx` line 5 for the grid,
 `ProductCard.jsx` lines 13 and 30 for the column and button classes).
 Rejected: nothing.
+
+## 2026-11-18 — a trial marking before submitting
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: mark the project against the rubric the way the marking does, and say what could
+still gain points.
+Ran (by the assistant): copied the starter zip's `checks/` over mine (identical); `npm test` →
+19 passed; `npm run lint` → no output; row 3 and row 13 clean; rows 4–10, 14, 16–19 in headless
+Chrome with every host but localhost blocked — all pass; every line REVIEW.md cites checked with
+`git show <commit>:<file>`. No file changed.
+Kept: the estimate (code at the maximum; REVIEW.md, AI-LOG.md and the commit history are where
+marks can still move).
+Changed: nothing.
+Rejected: nothing.
+
+## 2026-11-18 — clarify REVIEW.md, AI-LOG.md and the self-assessment
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: fix the points the trial marking raised, in the written files only, without committing.
+Result: REVIEW.md entry 6 says the first version was never committed on its own; entry 7 says I
+asked for the memo and ran the revert myself; the form entry above gains the sentence I sent
+about the errors; the documentation entry says where the corrected citations live; the
+self-assessment says `0bc20df` also carries documentation and that the form was not preceded
+by a clean commit; the opening of this log says who wrote what in the three written files; the
+single "three written files" entry is split into the written files after each part (with
+their commits) and the self-assessment draft.
+Kept: every edit as the assistant made it, after reading `git diff` of the three files — the
+new lines say what happened (who reverted, which sentence I sent, which commit holds what) and
+change no claimed mark; no file in `src/` was touched.
+Changed: none.
+Rejected: none.
