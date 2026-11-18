@@ -99,3 +99,30 @@ so `git show <commit>:<file>` shows exactly the lines cited.
   thuộc tính mà form cần rồi cái nào thiếu thì display..." (my reading was that submit collects
   the attributes and shows whichever is missing) — I checked the brief again and kept the
   computed version
+
+### 9. One framework from npm: Bootstrap, imported from `node_modules`
+- **Where:** commit `ed59caa`, `src/main.jsx` line 3 and `package.json` line 16
+- **Decision:** kept
+- **What decided it:** row 19 with the network to anything but localhost blocked — the page still
+  had its styles, and the Network tab showed no request to any domain other than `localhost:5173`;
+  row 13 — `git diff <starter> -- package.json vite.config.js` shows only the one `bootstrap`
+  line and no change to `vite.config.js`
+- **Why:** a CDN link would leave the page unstyled exactly when the marking run blocks external
+  network; importing from `node_modules` means the styles ship with the project, and Bootstrap
+  needs no Vite plugin, so `vite.config.js` could stay untouched
+- **Sentence sent:** none — kept as written
+
+### 10. Keeping the elements and the 44 px buttons while using Bootstrap
+- **Where:** commit `ed59caa`, `src/index.css` lines 5 and 8; the classes are in
+  `src/components/ProductList.jsx` line 5 (the grid on the `ul`) and
+  `src/components/ProductCard.jsx` lines 13 and 30 (the `col-12 col-md-6 col-xl-4` on each `li`
+  and the `btn` classes on the buttons)
+- **Decision:** kept
+- **What decided it:** row 19 at 360, 768 and 1280 px — no sideways scrolling, no button under
+  44 px tall, and the products in 1 / 2 / 3 columns; C3 read — every label is still a `<label>`,
+  every action still a `<button>`, the list is still a `<ul aria-label="Products">` with `<li>`
+- **Why:** a framework's default button padding does not guarantee 44 px, so `min-height: 44px`
+  states the requirement once; the grid goes on the `ul`/`li` that the briefs ask for instead of
+  replacing them with `div`s, and `overflow-wrap` keeps the long Vietnamese name from widening a
+  card at 360 px
+- **Sentence sent:** none — kept as written, the first styled version passed row 19

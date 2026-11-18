@@ -2,7 +2,17 @@
 
 Tool for every entry: OpenCode (agent mode), model DeepSeek V4.1 Flash Free.
 I made every commit myself; the assistant wrote code and drafts but never committed.
-Each entry was written right after the work it describes.
+Each entry was written right after the work it describes, except the setup entry, which I
+added at the end when I noticed it was missing from the log.
+
+## 2026-11-18 — setup and the starter commit
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: `npm install`, `git init` with my identity.
+Ran: npm test → 19 failed (the starter state, as README says it should be); npm run lint → no
+output.
+Kept: the starter exactly as shipped.
+Changed: nothing.
+Rejected: nothing.
 
 ## 2026-11-18 — plan before code
 Tool: OpenCode (DeepSeek V4.1 Flash Free).
@@ -86,4 +96,42 @@ the submit handler (line 25) so the page never reloads and the fields never reac
 confirmation clearing the cart through `onPlaced` and resetting `tried` so no error appears on
 the cleared form.
 Changed: nothing.
+Rejected: nothing.
+
+## 2026-11-18 — one CSS framework (C1–C3)
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: style the page with one CSS framework installed with npm, keeping the labels,
+buttons and list elements the briefs ask for, with buttons at least 44 px tall and the products
+in more than one column at 1280 px.
+Ran: npm i bootstrap → package.json gains one line; npm test → 19 passed; npm run lint → no
+output; row 19 in Chromium with every host but localhost unresolvable
+(`--host-resolver-rules="MAP * ~NOTFOUND, EXCLUDE localhost"`): the page stayed styled and no
+request went to any domain other than localhost:5173; at 360 / 768 / 1280 px there was no
+sideways scrolling, nothing clipped, no button under 44 px and the products sat in 1 / 2 / 3
+columns. Row 13: `git diff 59d2140 -- package.json vite.config.js` shows only the bootstrap line.
+Kept: the Bootstrap import in `src/main.jsx` from `node_modules` (not a CDN); the grid on the
+existing `ul`/`li` (`row g-3` + `col-12 col-md-6 col-xl-4`); `min-height: 44px` in
+`src/index.css` because a framework's default button padding does not guarantee 44 px;
+`overflow-wrap: anywhere` on card titles so the long Vietnamese name cannot widen a card at
+360 px.
+Changed: nothing.
+Rejected: nothing.
+
+## 2026-11-18 — the three written files
+Tool: OpenCode (DeepSeek V4.1 Flash Free).
+Asked for: draft `REVIEW.md`, `AI-LOG.md` and `SELF_ASSESSMENT_REPORT.md` from what the earlier
+requests actually did — no claim that was not run or read, and one REVIEW entry per decision,
+tied to a commit and to lines that exist in that commit.
+Ran: checked every cited line with `git show <commit>:<file>`; `npm test` → 19 passed;
+`npm run lint` → no output; row 3 prints nothing; `git diff 59d2140 -- package.json
+vite.config.js` shows only the bootstrap line. Read the drafts back against the rubric's shape.
+Kept: the ten REVIEW entries and the evidence in each; the self-assessment table, with claims
+set below the maximum where the evidence was thinner.
+Changed: added the setup entry I had left out, and said so in the opening line; removed the
+"starter commit is not logged" bullet from the self-assessment, raised that claim from 8 to 9
+and the total from 93 to 94; rewrote the "What I would do differently" sentence that still asked
+for the setup entry; corrected three citations that had drifted after the Bootstrap commit —
+`src/App.jsx` lines 31–32 → 35–36, `src/App.jsx` line 40 → 41, `src/components/ProductList.jsx`
+line 4 → 8 — and two in the new framework entry (`ProductList.jsx` line 5 for the grid,
+`ProductCard.jsx` lines 13 and 30 for the column and button classes).
 Rejected: nothing.
